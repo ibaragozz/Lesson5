@@ -18,6 +18,9 @@ class Warrior():
         self.endurance -= 6
 
     def walk(self):
+        print(f” {self.name} гуляет”)
+
+    def info(self):
         print(f”имя воина - {self.name}”)
         print(f”цвет волос воина - {self.hair_color}”)
         print(f”сила воина - {self.power}”)
