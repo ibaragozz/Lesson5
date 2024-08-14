@@ -1,42 +1,44 @@
-class Warrior():
-    def __init__(self, name, power, endurance, hair_color):
-        self.name = name
-        self.power = power
-        self.endurance = endurance
-        self.hair_color = hair_color
+all_tasks = []
 
-    def eat(self):
-        print(f'{self.name} сел кушать')
-        self.power += 1
+class Task:
+    def __init__(self, taskname, deadline, status=False):
+        self.taskname = taskname
+        self.deadline = deadline
+        self.status = status
 
-    def sleep(self):
-        print(f'{self.name} лег поспать')
-        self.endurance += 2
+    @staticmethod
+    def add_task(taskname, deadline, status=False):
+        task = Task(taskname, deadline, status)
+        all_tasks.append(task)
 
-    def fight(self):
-        print(f'{self.name} сражается”')
-        self.endurance -= 6
+    @staticmethod
+    def done(taskname):
+        for task in all_tasks:
+            if task.taskname == taskname:
+                task.status = True
+                break
 
-    def walk(self):
-        print(f'{self.name} гуляет')
+    @staticmethod
+    def show_tasks():
+        for task in all_tasks:
+            if not task.status:
+                print(f'{task.taskname}, {task.deadline}')
 
-    def info(self):
-        print(f'имя воина - {self.name}')
-        print(f'цвет волос воина - {self.hair_color}')
-        print(f'сила воина - {self.power}')
-        print(f'выносливость воина - {self.endurance}')
+# Получаем данные от пользователя
+taskname = input("Введите название задачи: ")
+deadline = input("Введите срок выполнения задачи (ДД:ММ:ГГГГ): ")
 
-war1 = Warrior('Леголас', 25, 55, 'Блондин')
-war2 = Warrior('Боромир', 33, 45, 'Брюнет')
+# Создаем и добавляем задачу
+Task.add_task(taskname, deadline)
 
-print(war2.endurance)
-print(war2.power)
+# Отображаем невыполненные задачи
+print("Список невыполненных задач:")
+Task.show_tasks()
 
-war2.eat()
-war2.sleep()
+# Пример завершения задачи
+done_task = input("Введите название задачи, которую хотите пометить как выполненную: ")
+Task.done(done_task)
 
-print(war2.endurance)
-print(war2.power)
-
-war1.info()
-war2.info()
+# Отображаем оставшиеся невыполненные задачи
+print("Оставшиеся невыполненные задачи:")
+Task.show_tasks()
